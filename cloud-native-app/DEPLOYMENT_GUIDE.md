@@ -133,7 +133,10 @@ Wait 2-3 minutes. Visit your App URL. **Done!** 🚀
     *   You should see a workflow with a **Green Checkmark** ✅ (if it failed before, the new one "Fix: Add start..." should pass).
 
 2.  **Check Your Website:**
-    *   Go to your Azure App URL (e.g., `https://educast-yourname.azurewebsites.net`).
+    *   **CRITICAL:** Do NOT visit `educast-yourname.azurewebsites.net`. That is just an example!
+    *   Go to your **Azure Portal**.
+    *   Click on your App Service.
+    *   Your REAL link is on the right side (Labelled: **Default Domain**). Click that one!
     *   It should load the login page!
 
 3.  **Start Recording:**
