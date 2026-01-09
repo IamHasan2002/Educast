@@ -36,12 +36,17 @@ git push -u origin main
 7.  Paste and run them in your terminal. Your code is now on GitHub!
 
 ### ⚠️ Troubleshooting: "Author identity unknown"
-If you see an error saying `*** Please tell me who you are`, run these two commands in your terminal (using your own details):
+If you see an error saying `*** Please tell me who you are`, run these two commands in your terminal:
 
-```powershell
-git config --global user.email "your.email@example.com"
-git config --global user.name "Your Name"
-```
+1.  **Set your Name** (I got this from your screenshot):
+    ```powershell
+    git config --global user.name "MD Tazimul Hasan"
+    ```
+
+2.  **Set your Email** (Replace with your actual university email):
+    ```powershell
+    git config --global user.email "your.email@university.ac.uk"
+    ```
 
 Then try the `git commit` command again.
 
@@ -63,21 +68,25 @@ Go to the [Azure Portal](https://portal.azure.com).
 9.  Click **Review + create** -> **Create**.
 
 ### 2. Create Database (Cosmos DB)
+*(If you already have a Cosmos DB from a previous lab, you can reuse it! Just skip to step 7).*
+
 1.  Search for **"Azure Cosmos DB"** -> **Create**.
 2.  Select **Azure Cosmos DB for NoSQL**.
 3.  **Resource Group:** Select `EduCast-RG`.
 4.  **Account Name:** Unique name (e.g., `educast-db-yourname`).
 5.  **Capacity Mode:** Serverless (Cheaper/Free tier).
 6.  Click **Review + create** -> **Create**.
-7.  **Once created:** Go to resource -> **Keys (or Data Explorer)** -> Copy `PRIMARY CONNECTION STRING`.
+7.  **Once created (or if you already have one):** Go to resource -> **Keys (or Data Explorer)** -> Copy `PRIMARY CONNECTION STRING`.
 
 ### 3. Create Storage (Blob)
+*(Same here! If you have an existing Storage Account, you can reuse it).*
+
 1.  Search for **"Storage accounts"** -> **Create**.
 2.  **Resource Group:** `EduCast-RG`.
 3.  **Name:** Unique name (e.g., `educaststorageyourname`) - *lowercase only*.
 4.  **Redundancy:** LRS (Locally-redundant storage) is cheapest.
 5.  Click **Review + create** -> **Create**.
-6.  **Once created:** Go to resource -> **Access keys** -> Copy `Connection string`.
+6.  **Once created (or if reused):** Go to resource -> **Access keys** -> Copy `Connection string`.
 
 ---
 
@@ -92,7 +101,10 @@ Go to your **App Service** in Azure Portal.
     *   **Name:** `AZURE_STORAGE_CONNECTION_STRING`
         **Value:** *(Paste Connection String from Part 3)*
     *   **Name:** `APPINSIGHTS_INSTRUMENTATIONKEY`
-        **Value:** *(Search for "Application Insights" resource that was auto-created with App Service, copy its Instrumentation Key)*
+        **Value:**
+        1.  Search for **"Application Insights"** in the top search bar.
+        2.  Click on the resource (it usually has the same name as your App Service).
+        3.  On the **Overview** page (top right), copy the **"Instrumentation Key"**.
 3.  Click **Apply** -> **Confirm**.
 
 ### 2. Connect GitHub (CI/CD)
@@ -102,7 +114,10 @@ Go to your **App Service** in Azure Portal.
 4.  **Organization:** Your username.
 5.  **Repository:** `EduCast-Cloud-Native`.
 6.  **Branch:** `main`.
-7.  Click **Save**.
+7.  **Workflow Option:** Select "Add a workflow".
+8.  **Authentication:** "User-assigned identity" is fine.
+9.  Click **Preview file** (Button at the bottom).
+10. **THEN** look for the **Save** button at the **very top left** of the menu bar.
 
 Azure will now pull your code, build it (`npm install`), and deploy it.
 Wait 2-3 minutes. Visit your App URL. **Done!** 🚀
