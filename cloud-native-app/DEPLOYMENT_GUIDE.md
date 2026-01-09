@@ -121,3 +121,23 @@ Go to your **App Service** in Azure Portal.
 
 Azure will now pull your code, build it (`npm install`), and deploy it.
 Wait 2-3 minutes. Visit your App URL. **Done!** 🚀
+
+---
+
+## Part 4: Final Verification ✅
+
+**What to do right now:**
+
+1.  **Check GitHub Actions:**
+    *   Go to your GitHub repository -> **Actions** tab.
+    *   You should see a workflow with a **Green Checkmark** ✅ (if it failed before, the new one "Fix: Add start..." should pass).
+
+2.  **Check Your Website:**
+    *   Go to your Azure App URL (e.g., `https://educast-yourname.azurewebsites.net`).
+    *   It should load the login page!
+
+3.  **Start Recording:**
+    *   Once the site works, you are ready to record your **5-minute video** for the coursework.
+    *   Follow the **CHECKLIST.md** I made for you to know what to show in the video.
+
+**Good Luck!** 🎓
