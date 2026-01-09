@@ -1,0 +1,100 @@
+<!-- CREATE PITCH PAGE -->
+<div>
+  <div class="form-container">
+    <h2 class="text-center text-primary mb-3">Create a New Pitch</h2>
+
+    <div ng-if="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+
+    <div ng-if="error" class="alert alert-error">
+      <div ng-if="typeof error === 'object'">
+        <div ng-repeat="(field, messages) in error">
+          <strong>{{ field }}:</strong>
+          <span ng-repeat="msg in messages">{{ msg }}</span>
+        </div>
+      </div>
+      <div ng-if="typeof error === 'string'">
+        {{ error }}
+      </div>
+    </div>
+
+    <form ng-submit="createPitch()">
+      <h3 class="text-primary mb-2">Basic Information</h3>
+      
+      <div class="form-group">
+        <label for="pitch_name">Pitch Name *</label>
+        <input type="text" id="pitch_name" ng-model="pitch.Pitch" placeholder="e.g., Main Pitch, Practice Ground" required>
+      </div>
+
+      <div class="form-group">
+        <label for="ground">Ground Name *</label>
+        <input type="text" id="ground" ng-model="pitch.Ground" placeholder="e.g., Lord's Cricket Ground" required>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price (£) *</label>
+        <input type="number" id="price" ng-model="pitch.PitchPrice" min="0" placeholder="50" required>
+      </div>
+
+      <h3 class="text-primary mb-2 mt-3">Location</h3>
+
+      <div class="grid grid-2">
+        <div class="form-group">
+          <label for="latitude">Latitude</label>
+          <input type="number" id="latitude" ng-model="pitch.location.latitude" step="0.0001" placeholder="51.5">
+        </div>
+
+        <div class="form-group">
+          <label for="longitude">Longitude</label>
+          <input type="number" id="longitude" ng-model="pitch.location.longitude" step="0.0001" placeholder="-0.12">
+        </div>
+      </div>
+
+      <h3 class="text-primary mb-2 mt-3">Pitch Details</h3>
+
+      <div class="form-group">
+        <label for="status">Status *</label>
+        <select id="status" ng-model="pitch.Status" required>
+          <option value="Open">Open</option>
+          <option value="Closed">Closed</option>
+          <option value="Under Maintenance">Under Maintenance</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="environment">Environment *</label>
+        <select id="environment" ng-model="pitch.Environment" required>
+          <option value="Indoor">Indoor</option>
+          <option value="Outdoor">Outdoor</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="ground_type">Ground Type *</label>
+        <select id="ground_type" ng-model="pitch.GroundType" required>
+          <option value="Grass">Grass</option>
+          <option value="Artificial Turf">Artificial Turf</option>
+          <option value="Clay">Clay</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="bowling_machine">Bowling Machine *</label>
+        <select id="bowling_machine" ng-model="pitch['Bowling Machine']" required>
+          <option value="available">Available</option>
+          <option value="not available">Not Available</option>
+          <option value="chargable">Chargeable</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-3" ng-disabled="loading" style="width: 100%;">
+        {{ loading ? 'Creating pitch...' : 'Create Pitch' }}
+      </button>
+    </form>
+
+    <p class="text-center mt-3">
+      <a href="#!/pitches" class="text-primary">Back to pitches</a>
+    </p>
+  </div>
+</div>

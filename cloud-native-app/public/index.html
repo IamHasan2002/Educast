@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduCast | Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <!-- Left Image Section -->
+        <div class="login-image">
+            <div class="login-overlay"></div>
+            <div class="login-text">
+                <h1 style="font-size: 3rem; margin-bottom: 1rem; line-height: 1.1;">
+                    Unlock Knowledge.<br>Share Your Expertise.
+                </h1>
+                <p style="opacity: 0.9; font-size: 1.1rem;">
+                    Join our academic community to share documents, discuss ideas, and collaborate with peers.
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Form Section -->
+        <div class="login-form-section">
+            <div class="login-card">
+                <div style="margin-bottom: 2rem;">
+                    <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Log In / Sign Up</h2>
+                </div>
+
+                <div class="auth-tabs">
+                    <div class="auth-tab active" id="tab-signup" onclick="switchTab('signup')">Sign Up</div>
+                    <div class="auth-tab" id="tab-login" onclick="switchTab('login')">Log In</div>
+                </div>
+
+                <form id="auth-form">
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" id="username" class="form-control" placeholder="Enter username" required>
+                    </div>
+
+                    <div class="form-group" id="email-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter email address">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="Enter password" required>
+                    </div>
+
+                    <!-- Extended Fields (Hidden by default for login, shown for signup) -->
+                    <div id="signup-fields" style="display: none;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label class="form-label">Role</label>
+                                <select id="role" class="form-control">
+                                    <option value="student">Student</option>
+                                    <option value="teacher">Teacher</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Gender</label>
+                                <select id="gender" class="form-control">
+                                    <option value="m">Male</option>
+                                    <option value="f">Female</option>
+                                    <option value="o">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">University / Institution</label>
+                            <input type="text" id="university" class="form-control"
+                                placeholder="e.g. Ulster University">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Subject</label>
+                            <input type="text" id="subject" class="form-control" placeholder="e.g. Computer Science">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label class="form-label">Country</label>
+                                <input type="text" id="country" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">City</label>
+                                <input type="text" id="city" class="form-control">
+                            </div>
+                        </div>
+                    </div> <button type="submit" id="submit-btn" class="btn btn-primary"
+                        style="width: 100%; margin-top: 1rem;">
+                        Create Account
+                    </button>
+                </form>
+
+                <div style="margin-top: 2rem; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                    By joining, you agree to our Terms of Service and Privacy Policy.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        let currentMode = 'signup';
+        const submitBtn = document.getElementById('submit-btn');
+        const emailGroup = document.getElementById('email-group');
+        const signupFields = document.getElementById('signup-fields');
+
+        function switchTab(mode) {
+            currentMode = mode;
+            // Update UI
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(`tab-${mode}`).classList.add('active');
+
+            if (mode === 'login') {
+                emailGroup.style.display = 'none';
+                signupFields.style.display = 'none';
+                submitBtn.textContent = 'Log In';
+                document.getElementById('auth-submit').dataset.mode = 'login';
+            } else {
+                emailGroup.style.display = 'block';
+                signupFields.style.display = 'block';
+                submitBtn.textContent = 'Create Account';
+                document.getElementById('auth-submit').dataset.mode = 'register';
+            }
+        }
+
+        // Hook into app.js logic
+        document.getElementById('auth-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (currentMode === 'login') {
+                login(username, password);
+            } else {
+                // Collect expanded data
+                const email = document.getElementById('email').value;
+                const role = document.getElementById('role').value;
+                const gender = document.getElementById('gender').value;
+                const university = document.getElementById('university').value;
+                const subject = document.getElementById('subject').value;
+                const country = document.getElementById('country').value;
+                const city = document.getElementById('city').value;
+
+                registerExtended({ username, password, email, role, gender, university, subject, country, city });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+﻿<div class="container-fluid">
+    <h2 class="mb-4">Browse Pitches</h2>
+    
+    <div class="filter-section">
+        <h5>Filters</h5>
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Search</label>
+                <input type="text" class="form-control" ng-model="filters.q" placeholder="Search...">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Ground</label>
+                <input type="text" class="form-control" ng-model="filters.ground">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Status</label>
+                <select class="form-control" ng-model="filters.status">
+                    <option value="">All</option>
+                    <option ng-repeat="status in statusOptions" value="{{status}}">{{status}}</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Ground Type</label>
+                <select class="form-control" ng-model="filters.type">
+                    <option value="">All</option>
+                    <option ng-repeat="type in groundTypeOptions" value="{{type}}">{{type}}</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Environment</label>
+                <select class="form-control" ng-model="filters.env">
+                    <option value="">All</option>
+                    <option ng-repeat="env in environmentOptions" value="{{env}}">{{env}}</option>
+                </select>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Min Price</label>
+                <input type="number" class="form-control" ng-model="filters.min_price">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Max Price</label>
+                <input type="number" class="form-control" ng-model="filters.max_price">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label class="form-label">Bowling Machine</label>
+                <select class="form-control" ng-model="filters.has_bowling_machine">
+                    <option value="">All</option>
+                    <option value="true">Available</option>
+                    <option value="false">Not Available</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" ng-click="loadPitches()">Apply Filters</button>
+                <button class="btn btn-secondary ms-2" ng-click="clearFilters()">Clear</button>
+            </div>
+        </div>
+    </div>
+    
+    <div ng-if="loading" class="loading-spinner">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    
+    <div ng-if="error" class="error-message">{{error}}</div>
+    
+    <div class="row" ng-if="!loading && !error">
+        <div class="col-md-4 mb-4" ng-repeat="pitch in pitches">
+            <pitch-card pitch="pitch"></pitch-card>
+        </div>
+    </div>
+    
+    <div ng-if="pitches.length === 0 && !loading" class="text-center">
+        <p class="text-muted">No pitches found matching your criteria.</p>
+    </div>
+</div>

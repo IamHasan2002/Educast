@@ -1,0 +1,76 @@
+<!-- ANALYTICS PAGE -->
+<div>
+  <h1 class="text-center mb-3">Analytics & Insights</h1>
+
+  <!-- Loading State -->
+  <div ng-if="loading" class="text-center">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading analytics...</p>
+  </div>
+
+  <!-- Error State -->
+  <div ng-if="error && !loading" class="alert alert-error">
+    {{ error }}
+  </div>
+
+  <!-- Analytics Content -->
+  <div ng-if="!loading && avgPriceByGround.length > 0" class="main-content">
+    <!-- Average Price by Ground -->
+    <div class="card">
+      <h2 class="text-primary mb-3">Average Price by Ground</h2>
+      <div class="grid grid-2">
+        <div ng-repeat="item in avgPriceByGround | orderBy:'-avgPrice' | limitTo:6" class="card">
+          <h4 class="text-dark">{{ item.ground }}</h4>
+          <p style="margin-top: 1rem;">
+            <strong>Average Price:</strong> <span class="text-primary" style="font-size: 1.5rem;">£{{ item.avgPrice | number:2 }}</span>
+          </p>
+          <p>
+            <strong>Number of Pitches:</strong> {{ item.count }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Rated Pitches -->
+    <div class="card mt-4">
+      <h2 class="text-primary mb-3">Top Rated Pitches</h2>
+      <div class="grid grid-2">
+        <div ng-repeat="item in topRated" class="card">
+          <h4 class="text-dark">{{ item.Pitch }}</h4>
+          <p class="card-subtitle">{{ item.Ground }}</p>
+          <p style="margin-top: 1rem;">
+            <strong>Rating:</strong> <span class="stars">{{ getStars(item.avgRating) }}</span> {{ item.avgRating | number:1 }}/5
+          </p>
+          <p>
+            <strong>Reviews:</strong> {{ item.numReviews }}
+          </p>
+          <a href="#!/pitches/{{ item._id }}" class="btn btn-primary btn-small mt-2" style="display: inline-block;">View Pitch</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="card mt-4">
+      <h2 class="text-primary mb-3">Summary Statistics</h2>
+      <div class="grid grid-3">
+        <div class="text-center">
+          <h3 class="text-primary" style="font-size: 2rem;">{{ avgPriceByGround.length }}</h3>
+          <p>Total Grounds</p>
+        </div>
+        <div class="text-center">
+          <h3 class="text-primary" style="font-size: 2rem;">{{ topRated.length }}</h3>
+          <p>Top Rated Pitches</p>
+        </div>
+        <div class="text-center">
+          <h3 class="text-primary" style="font-size: 2rem;">{{ totalPitches }}</h3>
+          <p>Total Pitches</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Data -->
+  <div ng-if="!loading && avgPriceByGround.length === 0" class="alert alert-info text-center">
+    <p>No analytics data available yet.</p>
+  </div>
+</div>

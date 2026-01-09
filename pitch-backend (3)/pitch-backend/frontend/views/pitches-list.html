@@ -1,0 +1,106 @@
+<!-- PITCHES LIST PAGE -->
+<div>
+  <h1 class="text-center mb-3">Cricket Pitches</h1>
+
+  <!-- Filters -->
+  <div class="filter-section">
+    <h3>Filter Pitches</h3>
+    <div class="filter-grid">
+      <div class="filter-group">
+        <label for="ground">Ground</label>
+        <input type="text" id="ground" ng-model="filters.ground" placeholder="Filter by ground">
+      </div>
+      <div class="filter-group">
+        <label for="status">Status</label>
+        <select id="status" ng-model="filters.status">
+          <option value="">All</option>
+          <option value="Open">Open</option>
+          <option value="Closed">Closed</option>
+          <option value="Under Maintenance">Under Maintenance</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="env">Environment</label>
+        <select id="env" ng-model="filters.env">
+          <option value="">All</option>
+          <option value="Indoor">Indoor</option>
+          <option value="Outdoor">Outdoor</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="type">Ground Type</label>
+        <select id="type" ng-model="filters.type">
+          <option value="">All</option>
+          <option value="Grass">Grass</option>
+          <option value="Artificial Turf">Artificial Turf</option>
+          <option value="Clay">Clay</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="min_price">Min Price</label>
+        <input type="number" id="min_price" ng-model="filters.min_price" placeholder="Min">
+      </div>
+      <div class="filter-group">
+        <label for="max_price">Max Price</label>
+        <input type="number" id="max_price" ng-model="filters.max_price" placeholder="Max">
+      </div>
+    </div>
+    <div style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+      <button ng-click="applyFilters()" class="btn btn-primary">Apply Filters</button>
+      <button ng-click="resetFilters()" class="btn btn-secondary">Reset Filters</button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div ng-if="loading" class="text-center">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading pitches...</p>
+  </div>
+
+  <!-- Error State -->
+  <div ng-if="error && !loading" class="alert alert-error text-center">
+    {{ error }}
+  </div>
+
+  <!-- Pitches Grid -->
+  <div ng-if="!loading && pitches.length > 0" class="grid grid-2">
+    <div ng-repeat="pitch in pitches" class="card">
+      <div class="card-header">
+        <div>
+          <h3 class="card-title">{{ pitch.Pitch }}</h3>
+          <p class="card-subtitle">📍 {{ pitch.Ground }}</p>
+        </div>
+        <span class="badge" ng-class="getStatusBadgeClass(pitch.Status)">{{ pitch.Status }}</span>
+      </div>
+
+      <div style="margin: 1rem 0;">
+        <p><strong>Environment:</strong> {{ pitch.Environment }}</p>
+        <p><strong>Type:</strong> {{ pitch.GroundType }}</p>
+        <p><strong>Price:</strong> <span class="text-primary">£{{ pitch.PitchPrice }}</span></p>
+        <p><strong>Bowling Machine:</strong> {{ pitch['Bowling Machine'] }}</p>
+      </div>
+
+      <div ng-if="pitch.Reviews.length > 0">
+        <p><strong>⭐ Rating:</strong> <span class="text-primary">{{ pitch.Reviews.length }} reviews</span></p>
+      </div>
+
+      <div class="card-actions">
+        <a href="#!/pitches/{{ pitch._id }}" class="btn btn-primary btn-small">View Details</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Results -->
+  <div ng-if="!loading && pitches.length === 0" class="alert alert-info text-center">
+    <p>No pitches found. Try adjusting your filters.</p>
+  </div>
+
+  <!-- Pagination -->
+  <div ng-if="!loading && pitches.length > 0" class="text-center mt-4 mb-4">
+    <p>Page {{ currentPage }} of {{ Math.ceil(total / limit) }} (Total: {{ total }} pitches)</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <button ng-click="prevPage()" ng-disabled="currentPage === 1" class="btn btn-secondary">← Previous</button>
+      <button ng-click="nextPage()" ng-disabled="currentPage * limit >= total" class="btn btn-secondary">Next →</button>
+    </div>
+  </div>
+</div>

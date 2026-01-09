@@ -1,0 +1,277 @@
+{
+  "info": {
+    "_postman_id": "demo-pitch-api",
+    "name": "Pitch API Demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "if (response && response.token) {",
+                  "    pm.environment.set('jwt', response.token);",
+                  "    console.log('Saved JWT token, length:', response.token.length);",
+                  "    pm.test('JWT saved to environment', function() {",
+                  "        pm.expect(pm.environment.get('jwt')).to.be.a('string');",
+                  "        pm.expect(pm.environment.get('jwt').split('.')).to.have.lengthOf(3);",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"demo@example.com\",\n    \"password\": \"password123\",\n    \"name\": \"Demo User\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "if (response && response.token) {",
+                  "    pm.environment.set('jwt', response.token);",
+                  "    console.log('Saved JWT token, length:', response.token.length);",
+                  "    pm.test('JWT saved to environment', function() {",
+                  "        pm.expect(pm.environment.get('jwt')).to.be.a('string');",
+                  "        pm.expect(pm.environment.get('jwt').split('.')).to.have.lengthOf(3);",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"demo@example.com\",\n    \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pitches",
+      "item": [
+        {
+          "name": "List Pitches",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/pitches",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pitches"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "disabled": true
+                },
+                {
+                  "key": "ground",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "env",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "type",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "min_price",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "max_price",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "has_bowling_machine",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Pitch",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "if (response && response._id) {",
+                  "    pm.collectionVariables.set('last_pitch_id', response._id);",
+                  "    console.log('Created pitch with ID:', response._id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"Pitch\": \"Demo Pitch\",\n    \"Ground\": \"Demo Ground\",\n    \"location\": {\n        \"latitude\": 51.5,\n        \"longitude\": -0.12\n    },\n    \"PitchPrice\": 50,\n    \"Status\": \"Open\",\n    \"GroundType\": \"Grass\",\n    \"Environment\": \"Indoor\",\n    \"Bowling Machine\": \"available\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/pitches",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pitches"]
+            }
+          }
+        },
+        {
+          "name": "Get Single Pitch",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/pitches/{{last_pitch_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pitches", "{{last_pitch_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Add Review",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"reviewer\": \"Demo User\",\n    \"rating\": 5,\n    \"comment\": \"Great pitch, well maintained!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/pitches/{{last_pitch_id}}/reviews",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pitches", "{{last_pitch_id}}", "reviews"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "item": [
+        {
+          "name": "Avg Price by Ground",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/pitches/analytics/avg-price-by-ground",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pitches", "analytics", "avg-price-by-ground"]
+            }
+          }
+        },
+        {
+          "name": "Top Rated",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/pitches/analytics/top-rated",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pitches", "analytics", "top-rated"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "last_pitch_id",
+      "value": ""
+    }
+  ]
+}

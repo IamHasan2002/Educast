@@ -1,0 +1,53 @@
+﻿<div class="hero-section">
+    <h1><i class="fas fa-baseball-ball"></i> Welcome to Pitch Booking</h1>
+    <p class="lead">Find and book the perfect cricket pitch for your practice sessions</p>
+    <a href="#!pitches" class="btn btn-light btn-lg mt-3">Browse Pitches</a>
+</div>
+
+<div class="container">
+    <div class="row text-center mb-5">
+        <div class="col-md-4">
+            <div class="feature-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            <h4>Easy Search</h4>
+            <p>Find pitches based on location, price, and facilities</p>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <h4>Reviews & Ratings</h4>
+            <p>Read reviews from other players before booking</p>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-icon">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <h4>Quick Booking</h4>
+            <p>Book your slot in just a few clicks</p>
+        </div>
+    </div>
+    
+    <h2 class="text-center mb-4">Featured Pitches</h2>
+    
+    <div ng-if="loading" class="loading-spinner">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    
+    <div ng-if="error" class="error-message">
+        {{error}}
+    </div>
+    
+    <div class="row" ng-if="!loading && !error">
+        <div class="col-md-4 mb-4" ng-repeat="pitch in featuredPitches">
+            <pitch-card pitch="pitch"></pitch-card>
+        </div>
+    </div>
+    
+    <div class="text-center mt-4" ng-if="!loading">
+        <a href="#!pitches" class="btn btn-primary btn-lg">View All Pitches</a>
+    </div>
+</div>

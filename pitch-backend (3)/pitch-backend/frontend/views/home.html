@@ -1,0 +1,26 @@
+<!-- HOME PAGE -->
+<div ng-controller="HomeController" class="hero">
+  <h1>🏏 Pitch Forecast</h1>
+  <p>Explore insights, trends, and manage pitches with forecasting-driven analytics</p>
+  <div class="hero-buttons">
+    <button ng-click="goToPitches()" class="btn btn-primary btn-large">Browse Pitches</button>
+    <button ng-click="goToCreate()" class="btn btn-outline btn-large">{{ isLoggedIn ? 'Create Pitch' : 'Get Started' }}</button>
+  </div>
+</div>
+
+<div class="main-content">
+  <div class="grid grid-3">
+    <div class="card text-center">
+      <h3 class="text-primary">🎯 Explore Pitches</h3>
+      <p>Browse comprehensive pitch data with filters and rich details.</p>
+    </div>
+    <div class="card text-center">
+      <h3 class="text-primary">🔮 Forecast Insights</h3>
+      <p>Leverage analytics to understand trends, pricing, and top-rated grounds.</p>
+    </div>
+    <div class="card text-center">
+      <h3 class="text-primary">🛠️ Manage Pitches</h3>
+      <p>Create, edit, and delete pitches with secure authentication.</p>
+    </div>
+  </div>
+</div>

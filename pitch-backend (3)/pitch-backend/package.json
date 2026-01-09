@@ -1,0 +1,20 @@
+{
+  "name": "pitch-booking-frontend",
+  "version": "1.0.0",
+  "description": "AngularJS frontend for Pitch Booking System",
+  "scripts": {
+    "start": "http-server -p 8080 -c-1",
+    "setup": "powershell -ExecutionPolicy Bypass -File setup_all_files.ps1"
+  },
+  "keywords": [
+    "angularjs",
+    "pitch-booking",
+    "cricket",
+    "frontend"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

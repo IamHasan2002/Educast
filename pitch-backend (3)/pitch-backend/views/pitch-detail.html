@@ -1,0 +1,95 @@
+﻿<div class="container">
+    <div ng-if="loading" class="loading-spinner">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    
+    <div ng-if="error" class="error-message">{{error}}</div>
+    <div ng-if="success" class="success-message">{{success}}</div>
+    
+    <div ng-if="!loading && pitch">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>{{pitch.Pitch}}</h1>
+                <h3 class="text-muted">{{pitch.Ground}}</h3>
+                
+                <div class="mb-4">
+                    <span class="badge bg-{{pitch.Status === 'Open' ? 'success' : 'danger'}} me-2">{{pitch.Status}}</span>
+                    <span class="badge bg-secondary me-2">{{pitch.GroundType}}</span>
+                    <span class="badge bg-info me-2">{{pitch.Environment}}</span>
+                    <span class="badge bg-{{pitch['Bowling Machine'] === 'available' ? 'success' : 'warning'}}">
+                        Bowling Machine: {{pitch['Bowling Machine']}}
+                    </span>
+                </div>
+                
+                <div class="price-tag mb-4">â‚¹{{pitch.PitchPrice}} / session</div>
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Location</h5>
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i> 
+                            Latitude: {{pitch.location.latitude}}, 
+                            Longitude: {{pitch.location.longitude}}
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Reviews</h5>
+                        
+                        <div ng-if="pitch.Reviews && pitch.Reviews.length > 0">
+                            <div class="review-item mb-3 pb-3 border-bottom" ng-repeat="review in pitch.Reviews">
+                                <div class="d-flex justify-content-between">
+                                    <strong>{{review.reviewer}}</strong>
+                                    <span class="rating">
+                                        <i class="fas fa-star" ng-repeat="star in getRatingArray(review.rating)"></i>
+                                    </span>
+                                </div>
+                                <p class="mb-0 mt-2">{{review.comment}}</p>
+                            </div>
+                        </div>
+                        
+                        <div ng-if="!pitch.Reviews || pitch.Reviews.length === 0">
+                            <p class="text-muted">No reviews yet. Be the first to review!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card" ng-if="isAuthenticated">
+                    <div class="card-body">
+                        <h5 class="card-title">Add a Review</h5>
+                        <form ng-submit="addReview()">
+                            <div class="mb-3">
+                                <label class="form-label">Rating</label>
+                                <select class="form-control" ng-model="newReview.rating" required>
+                                    <option value="">Select rating</option>
+                                    <option value="1">1 Star</option>
+                                    <option value="2">2 Stars</option>
+                                    <option value="3">3 Stars</option>
+                                    <option value="4">4 Stars</option>
+                                    <option value="5">5 Stars</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Comment</label>
+                                <textarea class="form-control" ng-model="newReview.comment" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Submit Review</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card" ng-if="!isAuthenticated">
+                    <div class="card-body text-center">
+                        <p>Please <a href="#!login">login</a> to add a review</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

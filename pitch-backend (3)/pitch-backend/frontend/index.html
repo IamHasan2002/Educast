@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="pitchApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pitch Forecast - Insights & Management</title>
+  
+  <!-- AngularJS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-sanitize.min.js"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- App Scripts -->
+  <script src="js/app.js"></script>
+</head>
+<body ng-controller="AppController">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#!/" class="navbar-logo">🏏 Pitch Forecast</a>
+      
+      <ul class="navbar-menu">
+        <li><a href="#!/" ng-class="{ active: isActive('/') }">Home</a></li>
+        <li><a href="#!/pitches" ng-class="{ active: isActive('/pitches') }">Browse Pitches</a></li>
+        <li ng-if="isLoggedIn()"><a href="#!/create-pitch" ng-class="{ active: isActive('/create') }">Create Pitch</a></li>
+        <li><a href="#!/analytics" ng-class="{ active: isActive('/analytics') }">Analytics</a></li>
+        
+        <!-- Auth Links -->
+        <li ng-if="!isLoggedIn()"><a href="#!/register" ng-class="{ active: isActive('/register') }">Register</a></li>
+        <li ng-if="!isLoggedIn()"><a href="#!/login" ng-class="{ active: isActive('/login') }">Login</a></li>
+        
+        <!-- User Menu -->
+        <li ng-if="isLoggedIn()" class="auth-buttons">
+          <a href="#!/profile" ng-class="{ active: isActive('/profile') }">👤 {{ getUser().email }}</a>
+          <button class="btn-logout" ng-click="logout()">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <div ng-view></div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; 2025 Pitch Forecast. All rights reserved.</p>
+    <p>Find and book the perfect pitch for your cricket matches.</p>
+  </footer>
+
+</body>
+</html>

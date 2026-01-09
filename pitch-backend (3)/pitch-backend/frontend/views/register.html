@@ -1,0 +1,33 @@
+<!-- REGISTER PAGE -->
+<div class="form-container">
+  <h2 class="text-center text-primary mb-3">Create Your Account</h2>
+  
+  <div ng-if="error" class="alert alert-error">
+    <span>{{ error }}</span>
+  </div>
+
+  <form ng-submit="register()">
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" ng-model="name" placeholder="John Doe" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" ng-model="email" placeholder="your@email.com" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" ng-model="password" placeholder="••••••••" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary" ng-disabled="loading" style="width: 100%;">
+      {{ loading ? 'Creating account...' : 'Register' }}
+    </button>
+  </form>
+
+  <p class="text-center mt-3">
+    Already have an account? <a href="#!/login" class="text-primary">Login here</a>
+  </p>
+</div>

@@ -1,0 +1,28 @@
+<!-- LOGIN PAGE -->
+<div class="form-container">
+  <h2 class="text-center text-primary mb-3">Login to Your Account</h2>
+  
+  <div ng-if="error" class="alert alert-error">
+    <span>{{ error }}</span>
+  </div>
+
+  <form ng-submit="login()">
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" ng-model="email" placeholder="your@email.com" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" ng-model="password" placeholder="••••••••" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary" ng-disabled="loading" style="width: 100%;">
+      {{ loading ? 'Logging in...' : 'Login' }}
+    </button>
+  </form>
+
+  <p class="text-center mt-3">
+    Don't have an account? <a href="#!/register" class="text-primary">Register here</a>
+  </p>
+</div>

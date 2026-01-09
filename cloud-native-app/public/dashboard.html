@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduCast | Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="home.html" class="nav-brand">
+            <i class="fas fa-graduation-cap"></i>
+            EduCast
+        </a>
+        <div class="nav-search">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" placeholder="Search for documents, students...">
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <a href="home.html" class="btn btn-icon"><i class="fa-solid fa-home"></i></a>
+            <button id="logout-btn" class="btn btn-outline">Logout</button>
+        </div>
+    </nav>
+
+    <div class="app-container" style="display: block;"> <!-- Custom Block Layout for Profile -->
+
+        <!-- Profile Header -->
+        <div class="card" style="margin-bottom: 2rem;">
+            <div class="profile-header">
+                <div class="cover-photo"></div>
+                <div class="profile-avatar-large">
+                    <img src="https://ui-avatars.com/api/?name=User&background=random" alt="Profile"
+                        id="profile-img-large">
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <h1 id="profile-name" style="font-size: 1.5rem; font-weight: 700;">Loading...</h1>
+                <p id="profile-role" style="color: var(--text-muted);">Academic Researcher & Contributor</p>
+                <div style="margin-top: 1rem;">
+                    <button id="edit-btn" class="btn btn-primary"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+                </div>
+            </div>
+
+            <div class="profile-tabs">
+                <div class="profile-tab active">Contributions</div>
+                <div class="profile-tab">Saved Lists</div>
+                <div class="profile-tab">About Info</div>
+            </div>
+        </div>
+
+        <!-- content Grid -->
+        <div style="display: grid; grid-template-columns: 300px 1fr; gap: 2rem;">
+            <!-- Left Sidebar Info -->
+            <div class="card" style="height: fit-content;">
+                <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">About Me</h3>
+                <div id="about-section"
+                    style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                    <!-- Auto populated -->
+                </div>
+
+                <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">Skills</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <span
+                        style="background: #e0f2fe; color: #0284c7; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.8rem;">Azure</span>
+                    <span
+                        style="background: #e0f2fe; color: #0284c7; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.8rem;">JavaScript</span>
+                    <span
+                        style="background: #e0f2fe; color: #0284c7; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.8rem;">Research</span>
+                </div>
+            </div>
+
+            <!-- Right Content Grid -->
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3>My Uploads</h3>
+                    <button class="btn btn-outline" style="font-size: 0.8rem;">+ New Upload</button>
+                </div>
+
+                <div id="posts-container"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                    <!-- Posts injected here as cards -->
+                    <div style="text-align: center; color: var(--text-muted); padding: 2rem; grid-column: span 3;">
+                        Loading content...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="edit-modal"
+        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center;">
+        <div class="card" style="width: 100%; max-width: 500px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h3>Edit Profile</h3>
+                <button onclick="document.getElementById('edit-modal').style.display='none'" class="btn btn-icon"><i
+                        class="fa-solid fa-times"></i></button>
+            </div>
+            <form id="edit-profile-form">
+                <div class="form-group">
+                    <label class="form-label">Profile Picture</label>
+                    <input type="file" id="edit-avatar" class="form-control" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bio / Headline</label>
+                    <input type="text" id="edit-bio" class="form-control" placeholder="e.g. Student at Ulster...">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">University</label>
+                        <input type="text" id="edit-university" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Subject</label>
+                        <input type="text" id="edit-subject" class="form-control">
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Country</label>
+                        <input type="text" id="edit-country" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">City</label>
+                        <input type="text" id="edit-city" class="form-control">
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <button type="button" onclick="document.getElementById('edit-modal').style.display='none'"
+                        class="btn btn-outline">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+
+            // Set User Info
+            document.getElementById('profile-name').textContent = currentUser.username;
+            // Use custom avatar if available, else UI Avatars
+            const avatarUrl = currentUser.avatarUrl || `https://ui-avatars.com/api/?name=${currentUser.username}&background=2563eb&color=fff`;
+            document.getElementById('profile-img-large').src = avatarUrl;
+
+            let roleText = "Academic Researcher";
+            if (currentUser.role === 'admin') roleText = "System Administrator";
+            else if (currentUser.role === 'student') roleText = `${currentUser.subject || 'Student'} at ${currentUser.university || 'University'}`;
+            else if (currentUser.role === 'teacher') roleText = `Lecturer at ${currentUser.university || 'University'}`;
+
+            document.getElementById('profile-role').textContent = currentUser.bio || roleText;
+
+            // Populate About Me Sidebar
+            // Note: The original HTML does not have an element with id="about-section".
+            // This script assumes such an element exists or will be added.
+            const aboutSectionElement = document.getElementById('about-section');
+            if (aboutSectionElement) {
+                const aboutHtml = `
+                    <p style="margin-bottom: 0.5rem;"><i class="fa-solid fa-graduation-cap" style="width: 20px;"></i> ${currentUser.university || 'Not set'}</p>
+                    <p style="margin-bottom: 0.5rem;"><i class="fa-solid fa-book" style="width: 20px;"></i> ${currentUser.subject || 'Not set'}</p>
+                    <p style="margin-bottom: 0.5rem;"><i class="fa-solid fa-location-dot" style="width: 20px;"></i> ${currentUser.city || ''}, ${currentUser.country || ''}</p>
+                    <p style="margin-bottom: 0.5rem;"><i class="fa-solid fa-venus-mars" style="width: 20px;"></i> ${currentUser.gender ? currentUser.gender.toUpperCase() : 'Not set'}</p>
+                `;
+                aboutSectionElement.innerHTML = aboutHtml;
+            }
+
+
+            // Load Posts
+            loadDashboard(currentUser.role === 'admin');
+
+            // Edit Modal Handlers
+            // Note: The original HTML does not have an element with id="edit-btn".
+            // This script assumes such an element exists or will be added.
+            const editButton = document.querySelector('.profile-info .btn-primary'); // Assuming the "Edit Profile" button is the target
+            if (editButton) {
+                editButton.id = 'edit-btn'; // Assign an ID for consistency with the script
+                editButton.addEventListener('click', () => {
+                    document.getElementById('edit-modal').style.display = 'flex';
+                    // Pre-fill
+                    document.getElementById('edit-bio').value = currentUser.bio || '';
+                    document.getElementById('edit-university').value = currentUser.university || '';
+                    document.getElementById('edit-subject').value = currentUser.subject || '';
+                    document.getElementById('edit-country').value = currentUser.country || '';
+                    document.getElementById('edit-city').value = currentUser.city || '';
+                });
+            }
+
+            const editProfileForm = document.getElementById('edit-profile-form');
+            if (editProfileForm) {
+                editProfileForm.addEventListener('submit', updateProfile);
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!-- EDIT PITCH PAGE -->
+<div>
+  <div class="form-container">
+    <h2 class="text-center text-primary mb-3">Edit Pitch</h2>
+
+    <div ng-if="loading" class="text-center">
+      <div class="spinner"></div>
+      <p class="loading-text">Loading pitch details...</p>
+    </div>
+
+    <div ng-if="!loading">
+      <div ng-if="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+
+      <div ng-if="error" class="alert alert-error">
+        {{ error }}
+      </div>
+
+      <form ng-submit="updatePitch()">
+        <h3 class="text-primary mb-2">Basic Information</h3>
+        
+        <div class="form-group">
+          <label for="pitch_name">Pitch Name *</label>
+          <input type="text" id="pitch_name" ng-model="pitch.Pitch" placeholder="e.g., Main Pitch" required>
+        </div>
+
+        <div class="form-group">
+          <label for="ground">Ground Name *</label>
+          <input type="text" id="ground" ng-model="pitch.Ground" placeholder="e.g., Lord's Cricket Ground" required>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price (£) *</label>
+          <input type="number" id="price" ng-model="pitch.PitchPrice" min="0" placeholder="50" required>
+        </div>
+
+        <h3 class="text-primary mb-2 mt-3">Location</h3>
+
+        <div class="grid grid-2">
+          <div class="form-group">
+            <label for="latitude">Latitude</label>
+            <input type="number" id="latitude" ng-model="pitch.location.latitude" step="0.0001">
+          </div>
+
+          <div class="form-group">
+            <label for="longitude">Longitude</label>
+            <input type="number" id="longitude" ng-model="pitch.location.longitude" step="0.0001">
+          </div>
+        </div>
+
+        <h3 class="text-primary mb-2 mt-3">Pitch Details</h3>
+
+        <div class="form-group">
+          <label for="status">Status *</label>
+          <select id="status" ng-model="pitch.Status" required>
+            <option value="Open">Open</option>
+            <option value="Closed">Closed</option>
+            <option value="Under Maintenance">Under Maintenance</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="environment">Environment *</label>
+          <select id="environment" ng-model="pitch.Environment" required>
+            <option value="Indoor">Indoor</option>
+            <option value="Outdoor">Outdoor</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="ground_type">Ground Type *</label>
+          <select id="ground_type" ng-model="pitch.GroundType" required>
+            <option value="Grass">Grass</option>
+            <option value="Artificial Turf">Artificial Turf</option>
+            <option value="Clay">Clay</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="bowling_machine">Bowling Machine *</label>
+          <select id="bowling_machine" ng-model="pitch['Bowling Machine']" required>
+            <option value="available">Available</option>
+            <option value="not available">Not Available</option>
+            <option value="chargable">Chargeable</option>
+          </select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+          <button type="submit" class="btn btn-primary" ng-disabled="loading" style="width: 100%;">
+            {{ loading ? 'Updating...' : 'Update Pitch' }}
+          </button>
+          <a href="#!/pitches/{{ pitch._id }}" class="btn btn-secondary" style="text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center;">
+            Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+
+    <p class="text-center mt-3">
+      <a href="#!/pitches" class="text-primary">Back to pitches</a>
+    </p>
+  </div>
+</div>

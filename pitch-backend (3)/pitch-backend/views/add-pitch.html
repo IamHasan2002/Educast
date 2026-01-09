@@ -1,0 +1,86 @@
+﻿<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">Add New Pitch</h2>
+                    
+                    <div ng-if="error" class="alert alert-danger">{{error}}</div>
+                    
+                    <form ng-submit="submitPitch()">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Pitch Name</label>
+                                <input type="text" class="form-control" ng-model="pitch.Pitch" required>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Ground Name</label>
+                                <input type="text" class="form-control" ng-model="pitch.Ground" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Latitude</label>
+                                <input type="number" step="any" class="form-control" ng-model="pitch.location.latitude" required>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Longitude</label>
+                                <input type="number" step="any" class="form-control" ng-model="pitch.location.longitude" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Price (â‚¹)</label>
+                                <input type="number" class="form-control" ng-model="pitch.PitchPrice" required>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Status</label>
+                                <select class="form-control" ng-model="pitch.Status" required>
+                                    <option value="">Select status</option>
+                                    <option ng-repeat="status in statusOptions" value="{{status}}">{{status}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Ground Type</label>
+                                <select class="form-control" ng-model="pitch.GroundType" required>
+                                    <option value="">Select type</option>
+                                    <option ng-repeat="type in groundTypeOptions" value="{{type}}">{{type}}</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Environment</label>
+                                <select class="form-control" ng-model="pitch.Environment" required>
+                                    <option value="">Select environment</option>
+                                    <option ng-repeat="env in environmentOptions" value="{{env}}">{{env}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Bowling Machine</label>
+                            <select class="form-control" ng-model="pitch.BowlingMachine" required>
+                                <option value="">Select option</option>
+                                <option ng-repeat="option in bowlingMachineOptions" value="{{option}}">{{option}}</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" ng-disabled="loading">
+                            <span ng-if="!loading">Create Pitch</span>
+                            <span ng-if="loading">Creating...</span>
+                        </button>
+                        <a href="#!pitches" class="btn btn-secondary ms-2">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
